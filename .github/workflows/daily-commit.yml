@@ -5,10 +5,10 @@ on:
     branches:
       - main
   schedule:
-    # Runs every day at 02:00 UTC
     - cron: '0 2 * * *'
 
-
+permissions:
+  contents: write  # Grants permission to push changes
 
 jobs:
   daily-commit:
@@ -23,5 +23,5 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add daily_commit_log.txt
-          git commit -m "Daily commit: $(date)"
+          git commit -m "Daily commit: $(date)" || echo "No changes to commit"
           git push
